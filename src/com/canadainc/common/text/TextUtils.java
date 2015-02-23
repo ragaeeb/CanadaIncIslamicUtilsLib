@@ -31,7 +31,10 @@ public class TextUtils
 			if (start >= 0 && end >= 0)
 			{
 				String term = input.substring( start+prefix.length(), end );
-				result.add(term);
+				
+				if ( !term.trim().isEmpty() ) {
+					result.add(term);
+				}
 			}
 			
 			start = end;
@@ -71,6 +74,23 @@ public class TextUtils
 	
 		while ( matcher.find() ) {
 			results.add( text.substring( matcher.start()+key.length(), matcher.end() ).trim() );
+		}
+	
+		return results;
+	}
+	
+	
+	public static List<String> findMatch(String key, String text)
+	{
+		if ( !PATTERNS.containsKey(key) ) {
+			PATTERNS.put( key, Pattern.compile(key) );
+		}
+	
+		Matcher matcher = PATTERNS.get(key).matcher(text);
+		List<String> results = new ArrayList<String>();
+	
+		while ( matcher.find() ) {
+			results.add( text.substring( matcher.start(), matcher.end() ).trim() );
 		}
 	
 		return results;
