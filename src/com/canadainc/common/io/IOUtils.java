@@ -1,7 +1,9 @@
 package com.canadainc.common.io;
 
+import java.io.BufferedWriter;
 import java.io.File;
 import java.io.FileInputStream;
+import java.io.FileWriter;
 import java.io.IOException;
 import java.nio.ByteBuffer;
 import java.nio.charset.Charset;
@@ -20,6 +22,26 @@ public class IOUtils
 		byte[] encoded = Files.readAllBytes(Paths.get(path));
 		return encoding.decode(ByteBuffer.wrap(encoded)).toString();
 	}
+	
+	
+	public static void writeFile(String path, String data)
+	{
+        BufferedWriter writer = null;
+        try {
+            File logFile = new File(path);
+            writer = new BufferedWriter(new FileWriter(logFile));
+            writer.write(data);
+        } catch (Exception e) {
+            e.printStackTrace();
+        } finally {
+            try {
+                // Close the writer regardless of what happens...
+                writer.close();
+            } catch (Exception e) {
+            }
+        }
+	}
+	
 	
 	
 	public static final byte[] getByteArrayFromFile(File imgFile)
