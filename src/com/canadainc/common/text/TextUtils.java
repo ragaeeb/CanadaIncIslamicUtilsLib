@@ -116,6 +116,25 @@ public class TextUtils
 	
 		return results;
 	}
+	
+	
+	/**
+	 * 
+	 * @param body The original text.
+	 * @param start The beginning of the text to match
+	 * @param end The end of the text to match.
+	 * @return Gets the substrig in the body, between the start and the end. 
+	 */
+	public static String extractInside(String body, String start, String end)
+	{
+		int markerStart = body.indexOf(start)+start.length();
+		int markerEnd = body.indexOf(end, markerStart);
+		return body.substring(markerStart, markerEnd).trim();
+	}
+	
+	public static String extractInsideBrackets(String input) {
+		return input.replaceAll("[\\(\\)]+", "").trim();
+	}
 
 
 	public static List<String> getValues(String key, String text) {
