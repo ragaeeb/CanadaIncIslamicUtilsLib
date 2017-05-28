@@ -1,6 +1,8 @@
 package com.canadainc.common.text;
 
 import java.util.ArrayList;
+import java.text.Normalizer;
+import java.text.Normalizer.Form;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -59,8 +61,8 @@ public class TextUtils
 		}
 		return closePos;
 	}
-
-
+	
+	
 	public static List<String> getValues(String key, String text, boolean sanitize)
 	{
 		if ( !PATTERNS.containsKey(key) )
@@ -96,6 +98,16 @@ public class TextUtils
 		return results;
 	}
 
+	
+	/**
+	 * https://stackoverflow.com/questions/18580287/how-could-i-remove-arabic-punctuation-form-a-string-in-java
+	 * @param input
+	 * @return
+	 */
+	public static String normalize(String input) {
+		return Normalizer.normalize(input, Form.NFKD).replaceAll("\\p{M}", "");
+	}
+	
 
 	public static List<String> getEqualValue(String key, String text)
 	{
