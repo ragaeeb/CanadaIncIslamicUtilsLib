@@ -121,6 +121,10 @@ public class DBUtils
 	public static void attach(Connection c, String file, String name) throws SQLException {
 		execStatement(c, "ATTACH DATABASE '"+file+"' AS "+name);
 	}
+	
+	public static void detach(Connection c, String name) throws SQLException {
+		execStatement(c, "DETACH DATABASE "+name);
+	}
 
 
 	public static String generatePlaceHolders(Collection<String> columns)
